@@ -21,6 +21,10 @@ void parseRequest(IPAddress remote, int port, char UDPBuffer[])
   Udp.endPacket();
 }
 
+int x;
+int y;
+int SW;
+
 void setup() {
   Serial.begin(9600);
   
@@ -39,7 +43,7 @@ void setup() {
 
   // attempt to connect to Wifi network:
   while (status != WL_CONNECTED) {
-    Serial.print("Attempting to connect to SSID: ");
+    Serial.print("Attempting to connect to SSID: "); 
     Serial.println(ssid);
 
     status = WiFi.begin(ssid, pass);
@@ -52,6 +56,10 @@ void setup() {
   Serial.println("\nStarting connection to server...");
 
   Udp.begin(localPort);
+
+  //STOP!!!! DO NOT GO ABOVE THIS LINE!!!!!!
+
+  pinMode(7, INPUT_PULLUP);
 }
 
 void loop() {
@@ -79,9 +87,12 @@ void loop() {
   //--NO DELAYS ALOWED IN CODE--//
   //--APPEND DATA TO ARRAY CALLED "DATA" THEN RUN FUNCTION CALLED "parseRequest"--//
 
+  x = analogRead(A0);
+  y = analogRead(A1);
+  SW = digitalRead(7);
   
-}
 
+}
 
 void printWifiStatus() {
   Serial.print("SSID: ");
