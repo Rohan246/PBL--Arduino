@@ -4,7 +4,7 @@
 
 int status = WL_IDLE_STATUS;
 char ssid[] = "AESRO2_2.4G";
-char pass[] = "EA8TDKNFGE";
+char pass[] = "NOH";
 int keyIndex = 0;
 
 unsigned int localPort = 2390;
