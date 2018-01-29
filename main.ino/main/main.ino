@@ -10,7 +10,7 @@ int keyIndex = 0;
 unsigned int localPort = 2390;
 
 char packetBuffer[255];
-char  ReplyBuffer[] = "testBuffer";
+char ReplyBuffer[] = "testBuffer";
 
 WiFiUDP Udp;
 
@@ -19,6 +19,18 @@ void parseRequest(IPAddress remote, int port, char UDPBuffer[])
   Udp.beginPacket(remote, port);
   Udp.write(UDPBuffer);
   Udp.endPacket();
+}
+
+char checkUDPReply()
+{
+  if(packetBuffer != "")
+  {
+    return packetBuffer;
+  }
+  else
+  {
+    return "";
+  }
 }
 
 int x;
@@ -90,8 +102,13 @@ void loop() {
   x = analogRead(A0);
   y = analogRead(A1);
   SW = digitalRead(7);
-  
 
+  parseRequest(Udp.remoteIP(), Udp.remotePort(), "hElLo");
+
+  delay(1000); // TEST
+  
+  //--DON'T EDIT THIS CODE--//
+  //--CRITICAL--//
 }
 
 void printWifiStatus() {
