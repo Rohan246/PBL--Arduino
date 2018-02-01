@@ -1,16 +1,22 @@
-gy#include <SPI.h>
+#include <SPI.h>
 #include <WiFi.h>
 #include <WiFiUdp.h>
 
 int status = WL_IDLE_STATUS;
 char ssid[] = "AESRO2_2.4G";
-char pass[] = "NOH";
+char pass[] = "PASSWORD"; //REMOVE PASSWORD
 int keyIndex = 0;
 
 unsigned int localPort = 2390;
 
 char packetBuffer[255];
-char ReplyBuffer[] = "testBuffer";
+char ReplyBuffer[] = "";
+
+String lastUdpSeries = "default";
+boolean alerted = false;
+
+long lastRequest;
+bool streamActive;
 
 WiFiUDP Udp;
 
@@ -19,13 +25,45 @@ void parseRequest(IPAddress remote, int port, char UDPBuffer[])
   Udp.beginPacket(remote, port);
   Udp.write(UDPBuffer);
   Udp.endPacket();
+
+  Serial.println("Parsed Request: " + (String)UDPBuffer);
 }
 
-char checkUDPReply()
+String parsedDataSet;
+void addItemToGrid(String dataSet)
 {
-  if(packetBuffer != "")
+  parsedDataSet = parsedDataSet + dataSet + "%";
+}
+
+String parseDataSet()
+{
+  return parsedDataSet;
+}
+
+String checkUDPReply()
+{
+  if((String)packetBuffer != "")
   {
-    return packetBuffer;
+    if((String)packetBuffer != lastUdpSeries && !alerted)
+    {
+      alerted = true;
+      lastUdpSeries = (String)packetBuffer;
+
+      return (String)packetBuffer;
+    }
+    else if((String)packetBuffer != lastUdpSeries && alerted)
+    {
+      alerted = true;
+      lastUdpSeries = packetBuffer;
+      
+      return (String)packetBuffer;
+    }
+    else
+    {
+      lastUdpSeries = packetBuffer;
+      
+      return "";
+    }
   }
   else
   {
@@ -36,6 +74,10 @@ char checkUDPReply()
 int x;
 int y;
 int SW;
+
+String cycleLoad;
+
+char loadBuffer[255];
 
 void setup() {
   Serial.begin(9600);
@@ -101,14 +143,57 @@ void loop() {
 
   x = analogRead(A0);
   y = analogRead(A1);
-  SW = digitalRead(7);
+  SW = digitalRead(7); // This needs to be sticky; we wont know weather it's pressed unless req. is sent at exact moment
 
-  parseRequest(Udp.remoteIP(), Udp.remotePort(), "hElLo");
-
-  delay(1000); // TEST
+  addItemToGrid((String)x);
+  addItemToGrid((String)y);
   
   //--DON'T EDIT THIS CODE--//
   //--CRITICAL--//
+
+  if(packetBuffer != "")
+  {
+    cycleLoad = checkUDPReply();
+    
+    if(cycleLoad == "CONNECTION_PROPAGANDA") // This is going to need to be fixed when more events are added; the request should be stored externally 
+    {
+      parseRequest(Udp.remoteIP(), Udp.remotePort(), "CONNECTION_CONFIRMED");
+    }
+    else if(cycleLoad == "BEGIN_STREAM")
+    {
+      streamActive = true;
+    }
+    else if(cycleLoad == "CANCEL_STREAM")
+    {
+      parseRequest(Udp.remoteIP(), Udp.remotePort(), "CONFIRMED_STREAM_CANCELATION");
+
+      streamActive = false;
+    }
+    else
+    {
+      /*
+      if(!alerted && cycleLoad != "default")
+      {
+        Serial.println("Invalid operation sent by client");
+        
+        parseRequest(Udp.remoteIP(), Udp.remotePort(), "INVAL_OPERATION");
+      }
+      */
+    }
+  }
+
+  if(streamActive)
+  {
+    if((millis() - lastRequest) >= 1000)
+    {
+      lastRequest = millis();
+
+      parseDataSet().toCharArray(loadBuffer, sizeof(parseDataSet()));
+      parseRequest(Udp.remoteIP(), Udp.remotePort(), loadBuffer);
+    }
+  }
+
+  parsedDataSet = "";
 }
 
 void printWifiStatus() {
@@ -124,7 +209,4 @@ void printWifiStatus() {
   Serial.print(rssi);
   Serial.println(" dBm");
 }
-
-
-
 
