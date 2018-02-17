@@ -2,11 +2,34 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Hello World!</title>
+    <title>Yosemite</title>
+    <link href="./src/common.css" type="text/css" rel="stylesheet">
+    <link href="./src/menu.css" type="text/css" rel="stylesheet">
+    <script src="./src/windowcontrols.js"></script>
   </head>
-  <body style="background-image: url('./images/bg.jpg'); background-size: cover; background-repeat: no-repeat; text-align:center; color: #5E6973;">
-    <h1>Yosemite Game</h1> 
-    <p>Our PBL team has desiged a game to give people a better understanding of yosemite national park</p>
-  
+  <body>
+    <div class="common-title">
+      <p class="common-title-label">
+        YOSEMITE
+      </p>
+      <img class="common-title-badge" src="./src/badge.png">
+      <div class="common-title-windowcontrols">
+        <img class="common-title-windowcontrols-control" id="minimize" style="margin-left: auto;" src="./src/minimize.png">
+        <img class="common-title-windowcontrols-control" id="close" src="./src/close.png">
+      </div>
+    </div>
+
+    <div class="connectionfieldwrapper">
+      <div class="connectionfield">
+        <div class="connectionfield-header">
+          Connect to Controller
+        </div>
+
+        <input class="connectionfield-ip" type="text" placeholder="IP Address">
+        <div class="connectionfield-submit">
+          Let's Go!
+        </div>
+      </div>
+    </div>
   </body>
 </html>

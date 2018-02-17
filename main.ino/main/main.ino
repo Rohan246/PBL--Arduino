@@ -4,7 +4,7 @@
 
 int status = WL_IDLE_STATUS;
 char ssid[] = "AESRO2_2.4G";
-char pass[] = "PASSWORD"; //REMOVE PASSWORD
+char pass[] = "EA8TDKNFGE"; //REMOVE PASSWORD
 int keyIndex = 0;
 
 unsigned int localPort = 2390;
@@ -75,6 +75,8 @@ int x;
 int y;
 int SW;
 
+boolean switchToggled;
+
 String cycleLoad;
 
 char loadBuffer[255];
@@ -141,12 +143,18 @@ void loop() {
   //--NO DELAYS ALOWED IN CODE--//
   //--APPEND DATA TO ARRAY CALLED "DATA" THEN RUN FUNCTION CALLED "parseRequest"--//
 
+  if(digitalRead(7) == LOW && streamActive)
+  {
+    switchToggled = true;
+  }
+  
   x = analogRead(A0);
   y = analogRead(A1);
-  SW = digitalRead(7); // This needs to be sticky; we wont know weather it's pressed unless req. is sent at exact moment
 
   addItemToGrid((String)x);
   addItemToGrid((String)y);
+
+ 
   
   //--DON'T EDIT THIS CODE--//
   //--CRITICAL--//
@@ -187,6 +195,17 @@ void loop() {
     if((millis() - lastRequest) >= 1000)
     {
       lastRequest = millis();
+
+      if(switchToggled)
+      {
+        addItemToGrid("true");
+
+        switchToggled = false;
+      }
+      else
+      {
+        addItemToGrid("false");
+      }
 
       parseDataSet().toCharArray(loadBuffer, sizeof(parseDataSet()));
       parseRequest(Udp.remoteIP(), Udp.remotePort(), loadBuffer);

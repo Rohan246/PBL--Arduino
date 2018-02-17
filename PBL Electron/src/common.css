@@ -1,0 +1,81 @@
+* 
+{
+    padding: 0;
+    margin: 0;
+}
+
+html
+{
+    color: white;
+
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+    font-weight: 200;
+
+    background-color: rgb(40, 40, 40);
+}
+
+.common-title
+{
+    background-color: rgb(60, 60, 60);
+
+    padding: 2% 4% 2% 4%;;
+
+    -webkit-app-region: drag;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    width: 100%;
+
+    box-sizing: border-box;
+}
+
+.common-title-windowcontrols
+{
+    display: flex;
+
+    width: 100%;
+}
+
+.common-title-windowcontrols-control
+{
+    display: flex;
+
+    transition: all .2s ease-in;
+
+    cursor: pointer;
+
+    visibility: none;
+
+    padding-left: 2%;
+
+    -webkit-app-region: no-drag;
+}
+.common-title-windowcontrols-control:hover
+{
+    opacity: .3;
+}
+
+.common-title-label
+{
+    display: flex; 
+
+    font-size: 110%;
+}
+
+.common-title-badge
+{
+    width: 32px;
+
+    height: 32px;
+}
+
+:not(input):not(textarea),
+:not(input):not(textarea)::after,
+:not(input):not(textarea)::before {
+    -webkit-user-select: none;
+    user-select: none;
+    cursor: default;
+}
