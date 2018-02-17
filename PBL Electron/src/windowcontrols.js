@@ -1,7 +1,9 @@
 // Controls windows & stuff
 const  {remote} = require("electron")
+let tm = require("./src/timing.js")
 
-window.onload = () => 
+console.log("CNT") // DEBUG
+tm.addTimingEvent(() => 
 {
     document.getElementById("close").addEventListener("click", () => {
         window.close();
@@ -10,4 +12,4 @@ window.onload = () =>
     document.getElementById("minimize").addEventListener("click", () => {
         remote.BrowserWindow.getFocusedWindow().minimize();
     })
-}
+})

@@ -79,7 +79,25 @@
 }
 .connectionfield-submit:hover
 {
-    border-radius: 3px;
+    border-radius: 1px;
 
-    opacity: .95;
+    opacity: .9;
+}
+
+.connectionfieldwrapper-loader
+{
+    width: 50px;
+
+    display: none;
+
+    height: 50px;   
+}
+
+.loadwrapper
+{
+    width: 100%;
+    
+    text-align: center;
+
+    margin-top: 5%;
 }
