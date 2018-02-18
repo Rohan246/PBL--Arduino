@@ -101,3 +101,8 @@
 
     margin-top: 5%;
 }
+
+#status
+{
+    display: none;
+}

@@ -2,7 +2,6 @@
 const  {remote} = require("electron")
 let tm = require("./src/timing.js")
 
-console.log("CNT") // DEBUG
 tm.addTimingEvent(() => 
 {
     document.getElementById("close").addEventListener("click", () => {

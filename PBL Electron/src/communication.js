@@ -32,6 +32,8 @@ exports.initalizeServer = (port, handle) =>
         console.log("Listening")
     })
 
+    server.bind(port);
+
     handle("active", null) 
 }
 
@@ -61,6 +63,7 @@ exports.close = () =>
     {
         console.log("Connection closed")
         
+        init = false
         server.close()
     }
 }
