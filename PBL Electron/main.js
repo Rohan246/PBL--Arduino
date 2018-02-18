@@ -10,14 +10,14 @@ const url = require('url')
 let mainWindow
 
 function createWindow () {
-  mainWindow = new BrowserWindow({width: 350, height: 500, show: false, frame: false, resizable: false, icon: "src/badge.png"})
+  mainWindow = new BrowserWindow({width: 1500, height: 1000, show: false, frame: false, resizable: false, icon: "src/badge.png"})
 
   mainWindow.once('ready-to-show', () => {
     mainWindow.show();
   })
 
   mainWindow.loadURL(url.format({
-    pathname: path.join(__dirname, 'index.html'),
+    pathname: path.join(__dirname, 'game source/game.html'),
     protocol: 'file:',
     slashes: true
   }))
