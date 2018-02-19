@@ -5,10 +5,10 @@ let tm = require("./src/timing.js")
 tm.addTimingEvent(() => 
 {
     document.getElementById("close").addEventListener("click", () => {
-        window.close();
+        window.close()
     })
 
     document.getElementById("minimize").addEventListener("click", () => {
-        remote.BrowserWindow.getFocusedWindow().minimize();
+        remote.BrowserWindow.getFocusedWindow().minimize()
     })
 })

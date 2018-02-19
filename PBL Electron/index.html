@@ -5,8 +5,10 @@
     <title>Yosemite</title>
     <link href="./src/common.css" type="text/css" rel="stylesheet">
     <link href="./src/menu.css" type="text/css" rel="stylesheet">
-    <script src="./src/windowcontrols.js"></script>
     <script src="./src/connect.js"></script>
+    <script>
+      const  {remote} = require("electron")
+    </script>
   </head>
   <body>
     <div class="common-title">
@@ -15,8 +17,8 @@
       </p>
       <img class="common-title-badge" src="./src/badge.png">
       <div class="common-title-windowcontrols">
-        <img class="common-title-windowcontrols-control" id="minimize" style="margin-left: auto;" src="./src/minimize.png">
-        <img class="common-title-windowcontrols-control" id="close" src="./src/close.png">
+        <img class="common-title-windowcontrols-control" onclick="remote.BrowserWindow.getFocusedWindow().minimize()" id="minimize" style="margin-left: auto;" src="./src/minimize.png">
+        <img class="common-title-windowcontrols-control" onclick="window.close()" id="close" src="./src/close.png">
       </div>
     </div>
 

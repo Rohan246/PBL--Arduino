@@ -17,7 +17,7 @@ function createWindow () {
   })
 
   mainWindow.loadURL(url.format({
-    pathname: path.join(__dirname, 'game source/game.html'),
+    pathname: path.join(__dirname, 'game.html'),
     protocol: 'file:',
     slashes: true
   }))
