@@ -8,6 +8,8 @@ let keyC
 
 exports.on = (event, handler) =>
 {
+    console.log("Registering event handler with name: " + event)
+
     switch(event)
     {
         case "stickUp":
@@ -61,17 +63,25 @@ function callActionIfReady(action)
 
 exports.initializeEventScheduler = () =>
 {
-    let window = document.getElementById("html")
-    window.addEventListener("keyPress", (event) => {
-        Console.log(event.char)
-        switch(event.char)
+    let win = document.getElementById("html")
+    win.addEventListener("keypress", (event) => {
+        console.log("Key: " + event.key)
+        switch(event.key)
         {
-            case "l":
+            case "a":
                 callActionIfReady(stickLeft)
 
                 break
-            case "r":
+            case "d":
                 callActionIfReady(stickRight)
+
+                break
+            case "w":
+                callActionIfReady(stickUp)
+
+                break
+            case "s":
+                callActionIfReady(stickDown)
 
                 break
         }
