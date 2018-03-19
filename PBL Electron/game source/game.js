@@ -3,7 +3,7 @@ var context
 
 var controller = require("./game source/controller.js")
 
-var x = 0
+var x = 800
 var y = 0
 
 // Place loadImage instances here
@@ -16,8 +16,12 @@ function initFrame()
   window.setInterval(() => // Frame update function
   {
     // Put ur code here
-    context.drawImage(charStageOne, x, y, 28, 53)
-  }, 20)
+    context.drawImage(loadImage("./game source/images/bg.jpg"), 1, 1, window.innerWidth, window.innerHeight)
+    context.drawImage(loadImage("./game source/images/portal.png"), window.innerWidth - 200, 450, 150, 150)
+    context.drawImage(charStageOne, x, 540, 28, 53)
+    console.log(x)
+    console.log(y)
+  }, 1)
 }
 
 function loadImage(path)
@@ -40,19 +44,19 @@ window.onload = () => // Setup
   controller.on("stickRight", () => 
   {
     context.clearRect(0, 0, canvas.width, canvas.height)
-    x = x + 10
+    x = x + 20
   })
   controller.on("stickLeft", () => {
     context.clearRect(0, 0, canvas.width, canvas.height)
-    x = x - 10
+    x = x - 20
   })
   controller.on("stickUp", () => {
     context.clearRect(0, 0, canvas.width, canvas.height)
-    y = y - 10
+    y = y - 20
   })
   controller.on("stickDown", () => {
     context.clearRect(0, 0, canvas.width, canvas.height)
-    y = y + 10
+    y = y + 20
   })
 
   // Window control code:

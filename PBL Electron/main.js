@@ -10,7 +10,7 @@ const url = require('url')
 let mainWindow
 
 function createWindow () {
-  mainWindow = new BrowserWindow({width: 1500, height: 1000, show: false, frame: false, resizable: false, icon: "src/badge.png"})
+  mainWindow = new BrowserWindow({width: 1500, height: 700, show: false, frame: false, resizable: false, icon: "Logo.png"})
 
   mainWindow.once('ready-to-show', () => {
     mainWindow.show();
